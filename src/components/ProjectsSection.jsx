@@ -1,24 +1,28 @@
 import { ArrowRight, ExternalLink, Github } from 'lucide-react';
-import React from 'react';
+import { cn } from '../lib/utils';
+import React, { useState } from 'react'; 
+
 
 const projects = [
   {
     id: 1,
-    title: "Project One",
-    description: "This is a brief description of Project One. It showcases the main features and technologies used.",
+    title: "Meta-Layer",
+    description: "Interactive landing page with seamless animations and transitions, inspired by Zentry.",
     image: "/projects/project1.png",
-    tags: ["React", "JavaScript", "CSS"],
-    demoUrl: "#",
-    githubUrl: "#",
+    tags: ["React", "JavaScript", "CSS","Tailwind","Gsap"],
+    demoUrl: "https://meta-layer.vercel.app/",
+    githubUrl: "https://github.com/shantanu020/MetaLayer",
+    category:"animation"
   },
   {
     id: 2,
-    title: "Project Two",
-    description: "This is a brief description of Project Two. It highlights the key functionalities and design.",
+    title: "Velvet Pour",
+    description: "A visually engaging, scroll-driven experience crafted using GSAP and React.",
     image: "/projects/project2.png",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-    demoUrl: "#",
-    githubUrl: "#",
+    tags: ["React.js", "JavaScript", "Tailwind CSS", "Gsap"],
+    demoUrl: "https://gsap-cocktails-one.vercel.app/",
+    githubUrl: "https://github.com/shantanu020/gsap_cocktails",
+    category:"animation"
   },
   {
     id: 3,
@@ -28,21 +32,101 @@ const projects = [
     tags: ["Node.js", "Express", "MongoDB"],
     demoUrl: "#",
     githubUrl: "#",
+    category:"animation"
   },
+  {
+    id: 4,
+    title: "Project Three",
+    description: "This is a brief description of Project Three. It emphasizes the innovative aspects and user experience.",
+    image: "/projects/project3.png",
+    tags: ["Node.js", "Express", "MongoDB"],
+    demoUrl: "#",
+    githubUrl: "#",
+    category:"java"
+  },
+  {
+    id: 5,
+    title: "Project Three",
+    description: "This is a brief description of Project Three. It emphasizes the innovative aspects and user experience.",
+    image: "/projects/project3.png",
+    tags: ["Node.js", "Express", "MongoDB"],
+    demoUrl: "#",
+    githubUrl: "#",
+    category:"java"
+  },
+  {
+    id: 6,
+    title: "Project Three",
+    description: "This is a brief description of Project Three. It emphasizes the innovative aspects and user experience.",
+    image: "/projects/project3.png",
+    tags: ["Node.js", "Express", "MongoDB"],
+    demoUrl: "#",
+    githubUrl: "#",
+    category:"java"
+  },
+  {
+    id: 7,
+    title: "Project Three",
+    description: "This is a brief description of Project Three. It emphasizes the innovative aspects and user experience.",
+    image: "/projects/project3.png",
+    tags: ["Node.js", "Express", "MongoDB"],
+    demoUrl: "#",
+    githubUrl: "#",
+    category:"fullstack"
+  },
+  {
+    id: 8,
+    title: "Project Three",
+    description: "This is a brief description of Project Three. It emphasizes the innovative aspects and user experience.",
+    image: "/projects/project3.png",
+    tags: ["Node.js", "Express", "MongoDB"],
+    demoUrl: "#",
+    githubUrl: "#",
+    category:"fullstack"
+  },
+  {
+    id: 9,
+    title: "Project Three",
+    description: "This is a brief description of Project Three. It emphasizes the innovative aspects and user experience.",
+    image: "/projects/project3.png",
+    tags: ["Node.js", "Express", "MongoDB"],
+    demoUrl: "#",
+    githubUrl: "#",
+    category:"fullstack"
+  },
+
 ];
+const categories = ["all", "fullstack", "animation", "java","ml"];
 
 const ProjectsSection = () => {
+  const [activeCategory, setactiveCategory] = useState("all");
+  const filteredProjects = projects.filter(
+    (project) => activeCategory === "all" || project.category === activeCategory
+  );
+
   return (
     <section id="projects" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
           Featured <span className="text-primary">Projects</span>
         </h2>
+        <div className='flex flex-wrap justify-center gap-4 mb-12'>
+          {categories.map((category,key)=>(
+            <button
+              key={key}
+              className={cn('px-5 py-2 rounded-full transition-colors duration-300 capitalize',activeCategory===category?'bg-primary  text-primary-foreground':'bg-secondary/70 text-foreground hover:bg-secondary')}
+              onClick={()=>setactiveCategory(category)}
+            >
+              {category}
+            </button>
+          ))}
+
+        </div>
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
           Here are some of my recent projects. Each project was carefully crafted with attention to detail, performance, and user experience.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, key) => (
+          {filteredProjects.map((project, key) => (
             <div
               key={key}
               className="group bg-card rounded-lg card-hover shadow-xs overflow-hidden"
